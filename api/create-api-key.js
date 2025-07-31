@@ -1,37 +1,16 @@
-import { randomBytes } from 'crypto';
-import mongoose from 'mongoose';
-
-const mongoUri = "mongodb+srv://stuntmanxbunny:bunny@asiaartsdb1.hp6gt.mongodb.net/?retryWrites=true&w=majority&appName=AsiaArtsDB1"
-
-const apiKeySchema = new mongoose.Schema({
-  key: String,
-  createdAt: { type: Date, default: Date.now }
-});
-const ApiKey = mongoose.models.ApiKey || mongoose.model('ApiKey', apiKeySchema);
-
-async function connect() {
-  if (mongoose.connection.readyState === 0) {
-    await mongoose.connect(mongoUri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-  }
-}
+import { connectDB } from '../../lib/db';
+import Key from '../../models/Key';
+import crypto from 'crypto';
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Only POST allowed' });
-  }
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Only POST allowed' });
+  if (req.headers['x-admin-token'] !== "trelloxbunny") return res.status(403).json({ error: 'Forbidden' });
 
-  try {
-    await connect();
+  await connectDB();
 
-    const key = randomBytes(16).toString('hex');
-    const newKey = await ApiKey.create({ key });
+  const newKey = crypto.randomBytes(24).toString('hex');
+  await Key.create({ key: newKey, ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress });
 
-    return res.status(200).json({ key: newKey.key });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: 'Internal error' });
-  }
+  res.json({ success: true, key: newKey });
 }
+
