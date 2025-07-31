@@ -1,7 +1,7 @@
 import { randomBytes } from 'crypto';
 import mongoose from 'mongoose';
 
-const mongoUri = process.env.MONGODB_URI;
+const mongoUri = "mongodb+srv://stuntmanxbunny:bunny@asiaartsdb1.hp6gt.mongodb.net/?retryWrites=true&w=majority&appName=AsiaArtsDB1"
 
 const apiKeySchema = new mongoose.Schema({
   key: String,
