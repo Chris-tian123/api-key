@@ -3,7 +3,7 @@ import Key from '../../models/Key';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Only POST allowed' });
-  if (req.headers['x-admin-token'] !== process.env.ADMIN_TOKEN) return res.status(403).json({ error: 'Forbidden' });
+  if (req.headers['x-admin-token'] !== "trelloxbunny") return res.status(403).json({ error: 'Forbidden' });
 
   const { key } = req.body;
   if (!key) return res.status(400).json({ error: 'Missing key' });
