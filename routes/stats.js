@@ -1,5 +1,5 @@
 import express from 'express';
-import Key from '../models/Key.js';
+import Key from '../models/key.js';
 
 const statsRoutes = express.Router();
 

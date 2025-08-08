@@ -1,5 +1,5 @@
 import express from 'express';
-import Key from '../models/Key.js';
+import Key from '../models/key.js';
 import checkPassword from '../utils/checkPassword.js';
 
 const listRoutes = express.Router();

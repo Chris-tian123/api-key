@@ -4,8 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "vercel dev",
-    "start": "vercel start"
+    "build": "npx esbuild index.js --bundle --platform=node --format=esm --outfile=dist/index.js --external:dotenv --external:express --external:express-rate-limit --external:mongoose --external:node:crypto",
+    "start": "npx wrangler dev",
+    "deploy": "npx wrangler deploy"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +17,10 @@
     "express": "^5.1.0",
     "express-rate-limit": "^8.0.1",
     "mongoose": "^8.17.0"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0",
+    "esbuild": "^0.19.5",
+    "glob": "^10.3.10"
   }
 }
