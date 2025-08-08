@@ -1,6 +1,6 @@
 import express from 'express';
-import crypto from 'crypto';
-import Key from '../models/Key.js';
+import crypto from 'node:crypto';
+import Key from '../models/key.js';
 import checkPassword from '../utils/checkPassword.js';
 
 const createRoutes = express.Router();
