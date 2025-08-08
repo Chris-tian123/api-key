@@ -11,7 +11,7 @@ import statsRoutes from './routes/stats.js';
 import logsRoutes from './routes/logs.js';
 
 if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
+  dotenv.config();
 }
 
 const app = express();
