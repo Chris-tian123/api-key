@@ -10,7 +10,10 @@ import listRoutes from './routes/list.js';
 import statsRoutes from './routes/stats.js';
 import logsRoutes from './routes/logs.js';
 
-dotenv.config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const app = express();
 app.use(express.json());
 app.set('trust proxy', 1);
