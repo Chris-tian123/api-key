@@ -39,4 +39,4 @@ app.get('/', (req, res) => {
   res.send('API Key Server is running.');
 });
 
-module.exports = app;
+export default app;
